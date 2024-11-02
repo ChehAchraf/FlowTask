@@ -160,15 +160,15 @@ function dragitem() {
 
             box.addEventListener('drop', function () {
                 box.append(drag);
-                let taskId = drag.getAttribute("data-id"); // الحصول على ID المهمة
-                let newStatus = box.id; // ID الحاوية الجديدة
+                let taskId = drag.getAttribute("data-id");
+                let newStatus = box.id; 
 
-                // إيجاد المهمة وتحديث حالتها
+            
                 let task = task_array.find(task => task.id === parseInt(taskId)); // استخدم parseInt
                 if (task) {
-                    task.task_status = newStatus; // تحديث الحالة
-                    push_to_ls(task_array); // تحديث التخزين المحلي
-                    push_into_html(task_array); // إعادة عرض المهام
+                    task.task_status = newStatus;
+                    push_to_ls(task_array);
+                    push_into_html(task_array);
                 }
             });
         });
