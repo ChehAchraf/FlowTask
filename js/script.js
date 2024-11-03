@@ -9,9 +9,9 @@ let warning_msg = document.getElementById('result');
 let todo = document.getElementById('to-do');
 let doing = document.getElementById('doing');
 let done = document.getElementById('done');
-let count1 = document.getElementById('counttodo')
-let count2 = document.getElementById('countdoing')
-let count3 = document.getElementById('countdone')
+let count1 = document.getElementById('counttodo');
+let count2 = document.getElementById('countdoing');
+let count3 = document.getElementById('countdone');
 warning_container.style.display = "none";
 let drag = null;
 let editTaskId = null;
@@ -20,6 +20,12 @@ let id = 0;
 form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (task_name.value !== "" && task_date.value !== "" && task_desc.value !== "" && task_p.value !== "") {
+        if(!date_check(task_date.value)){
+            warning_container.style.display = "block";
+            warning_msg.innerHTML = "Enter a valid Date Please";
+            return;
+        }
+        warning_container.style.display = "none"
         push_to_array(task_name, task_date, task_desc, task_p, task_status);
         push_into_html(task_array);
         push_to_ls(task_array);
@@ -38,6 +44,8 @@ function push_to_array(task_name, task_date, task_desc, task_p, task_status) {
         priorite: task_p.value,
         task_status: task_status.value
     };
+    date_check(task_date.value);
+    
     task_array.push(array);
 }
 function push_to_ls(task_array) {
@@ -69,7 +77,7 @@ function push_into_html(task) {
         temp_div.setAttribute("data-id", `${task.id}`);
         temp_div.setAttribute("draggable", "true");
         temp_div.innerHTML = `
-            <div class="self-start p-4 rounded-md space-y-2 ${task.priorite === "p1" ? 'bg-red-500' : task.priorite === "p2" ? 'bg-green-500' : 'bg-yellow-500' }">
+            <div class="self-start p-4 rounded-md space-y-2 ${task.priorite === "p1" ? 'bg-red-500' : task.priorite === "p2" ? 'bg-orange-500' : 'bg-green-500' }">
                 <div class="header flex justify-between space-x-2 font-extrabold text-xl">
                     <p>${task.id} - ${task.title}</p>
                     <div class="text-sm space-x-1 cursor-pointer font-thin">
@@ -174,3 +182,9 @@ function dragitem() {
         });
     });
 }
+function date_check(dateinput){
+    let date_into_number = new Date(dateinput);
+    let current_date = new Date();
+    current_date.setHours(0,0,0,0);
+    return date_into_number >= current_date;
+}   
