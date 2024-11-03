@@ -95,10 +95,13 @@ function push_into_html(task) {
             </div>`;
         if (task.task_status === "to-do") {
             todo.appendChild(temp_div);
+            document.getElementById('successModal').style.display = "flex"
         } else if (task.task_status === "doing") {
             doing.appendChild(temp_div);
+            document.getElementById('successModal').style.display = "flex"
         } else {
             done.appendChild(temp_div);
+            document.getElementById('successModal').style.display = "flex"
         }
         document.getElementById('total').innerHTML = `The all tasks u have is : ${task_array.filter(task => task).length}`
         count1.innerHTML= `${task_array.filter(task => task.task_status === "to-do").length}`
@@ -113,11 +116,13 @@ function push_into_html(task) {
             count3.innerHTML= `${task_array.filter(task => task.task_status === "done").length}`
         });
     });
+    
     dragitem();
 }
 function del_local(taskId) {
     task_array = task_array.filter((task) => task.id != taskId);
     push_to_ls(task_array); 
+    document.getElementById('successdelete').style.display = "flex"
 }
 var index;
 function show_edit_model(id) {
